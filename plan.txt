@@ -1,0 +1,60 @@
+SummaAI MVP Development Plan
+===========================
+
+
+Proposed File Structure:
+-----------------------
+summaai/
+├── app/
+│   ├── main.py              # Streamlit UI
+│   ├── email_parser.py      # Email fetching via IMAP
+│   ├── summarizer.py        # Summarization logic (Hugging Face)
+│   ├── notifier.py          # Notification system (Slack/email)
+│   └── db.py                # MySQL connection and helpers
+├── config/
+│   └── config.py            # Reads .env variables
+├── .env                     # Stores credentials securely
+├── requirements.txt         # Dependencies
+├── plan.txt                 # Build roadmap
+└── README.md
+
+SummaAI – MVP Build Plan
+========================
+
+Overview:
+---------
+SummaAI is a Streamlit-powered smart email assistant that parses incoming emails, detects important ones using keywords, summarizes them, and sends notifications. It uses open-source NLP and is backed by a MySQL database.
+
+Phase 1 – Core Features:
+------------------------
+1. [ ] Email integration (via IMAP/Gmail API)
+2. [ ] Keyword detection with scoring
+3. [ ] Email summarization using a Hugging Face model
+4. [ ] Store parsed emails in MySQL
+5. [ ] Notification system (Slack, push, or email)
+6. [ ] Streamlit dashboard to view summaries and adjust settings
+
+Phase 2 – Stretch Features:
+---------------------------
+- [ ] Daily/weekly digest
+- [ ] Auto-responder generation (manual approval toggle)
+- [ ] Keyword learning from feedback
+- [ ] Project-based email grouping
+
+Tech Stack:
+-----------
+- Python
+- Streamlit (UI)
+- MySQL (storage)
+- spaCy / Hugging Face Transformers (NLP)
+- dotenv (secrets)
+- Firebase or Slack (notifications)
+
+
+Next Steps:
+-----------
+- Set up Streamlit UI (main.py)
+- Connect MySQL and test basic email inserts
+- Build keyword scoring logic
+- Integrate summarizer
+- Test with sample inbox

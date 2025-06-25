@@ -1,42 +1,54 @@
-SummaAI 🧠📬  
-Smart Email Summarization & Notification Agent  
+# SummaAI
 
-SummaAI is your intelligent inbox sidekick. It filters your emails, finds the high-priority ones using keyword detection, and sends you clean summaries—so you can skip the noise and focus on what matters. Future versions will even respond for you.
+SummaAI is a Streamlit-powered smart email assistant that parses incoming emails, detects important ones using keywords, summarizes them using NLP, and sends notifications. It uses a MySQL database for storage.
 
-🔍 Features
+## Features
+- Email integration (IMAP/Gmail)
+- Keyword-based importance detection
+- Summarization using Hugging Face models
+- Notification system (Slack/email)
+- Streamlit dashboard
+- MySQL storage
 
-- ✨ **Keyword-based Importance Detection**  
-  Detects relevant signals like "urgent," "invoice," "meeting," etc.
+## Project Structure
+```
+summaai/
+├── app/
+│   ├── main.py              # Streamlit UI
+│   ├── email_parser.py      # Email fetching via IMAP
+│   ├── summarizer.py        # Summarization logic
+│   ├── notifier.py          # Notification system
+│   └── db.py                # MySQL connection and helpers
+├── config/
+│   └── config.py            # Reads .env variables
+├── .env                     # Stores credentials securely
+├── requirements.txt         # Dependencies
+├── plan.txt                 # Build roadmap
+└── README.md
+```
 
-- 📝 **Email Summarization**  
-  Uses free, open-source NLP models to generate bite-sized summaries.
+## Setup
+1. Clone the repo and navigate to the project directory.
+2. Create and activate a virtual environment:
+   ```
+   python -m venv venv
+   .\venv\Scripts\activate  # On Windows
+   source venv/bin/activate  # On Mac/Linux
+   ```
+3. Install dependencies:
+   ```
+   pip install -r requirements.txt
+   ```
+4. Copy `.env` template and fill in your credentials.
+5. Run the Streamlit app:
+   ```
+   streamlit run summaai/app/main.py
+   ```
 
-- 🔔 **Instant Notifications**  
-  Sends notifications via email, Slack, or push when important emails arrive.
+## Configuration
+Edit the `.env` file with your email, MySQL, and Slack credentials.
 
-- 🧠 **Built with Local AI Models**  
-  No cloud-based API fees—fully free and personal.
-
-⚙️ Tech Stack
-- Frontend/UI: Streamlit (instead of Flask)
-- Backend Logic: Embedded in Streamlit scripts
-- Database: MySQL
-- Email Integration: Gmail API or IMAP
-- Summarization: Hugging Face transformers (e.g., T5 or BART)
-- Notifications: Email, Slack webhook, or Firebase Cloud Messagin
-
-
-🚧 Roadmap
-
-- [x] Parse & store incoming emails
-- [x] Keyword detection & scoring system
-- [ ] Summarization pipeline
-- [ ] Push notification engine
-- [ ] Auto-responder (optional toggle)
-- [ ] Weekly digest mode
-
-## 💡 Why SummaAI?
-
-You shouldn't have to wade through newsletters, receipts, and endless threads just to find what’s actually important. SummaAI does the heavy lifting so your mind stays clear—and your inbox finally works for *you*.
+## Roadmap
+See `plan.txt` for the build plan and features.
 
 ---
