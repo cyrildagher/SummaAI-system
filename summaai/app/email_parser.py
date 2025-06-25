@@ -88,4 +88,45 @@ class EmailParser:
         """
         if self.mailbox:
             self.mailbox.logout()
-            self.mailbox = None 
+            self.mailbox = None
+
+# --- Dummy email generator for testing/demo purposes ---
+def generate_dummy_emails(limit=5):
+    """
+    Generate a list of dummy email dictionaries for testing or demo purposes.
+    Each dictionary includes sender, subject, body, and timestamp.
+    """
+    now = datetime.now().isoformat()
+    dummy_emails = [
+        {
+            'sender': 'boss@company.com',
+            'subject': 'Quarterly Report Needed ASAP',
+            'body': 'Hi,\n\nThis is URGENT. Please send the quarterly report by EOD.\nKeywords: urgent, report, deadline.\n\nThanks.',
+            'timestamp': now
+        },
+        {
+            'sender': 'hr@company.com',
+            'subject': 'Team Building Event Invitation',
+            'body': 'Hello!\n\nYou are invited to our annual team building event next Friday. RSVP soon!\nKeywords: invitation, event, RSVP.\n\nBest, HR',
+            'timestamp': now
+        },
+        {
+            'sender': 'alerts@bank.com',
+            'subject': 'Suspicious Login Attempt Detected',
+            'body': 'Dear Customer,\n\nWe detected a suspicious login attempt on your account. Please verify your identity.\nKeywords: security, alert, verify.\n\nBank Security Team',
+            'timestamp': now
+        },
+        {
+            'sender': 'colleague@company.com',
+            'subject': 'Lunch Plans?',
+            'body': 'Hey,\n\nAre you free for lunch today? Let me know!\nKeywords: lunch, meeting, casual.\n\nCheers.',
+            'timestamp': now
+        },
+        {
+            'sender': 'newsletter@news.com',
+            'subject': 'Your Daily News Digest',
+            'body': 'Good morning!\n\nHere are today's top stories.\nKeywords: news, digest, daily.\n\nStay informed!',
+            'timestamp': now
+        }
+    ]
+    return dummy_emails[:limit] 

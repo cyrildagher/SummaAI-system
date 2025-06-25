@@ -27,12 +27,14 @@ SummaAI is a Streamlit-powered smart email assistant that parses incoming emails
 
 Phase 1 – Core Features:
 ------------------------
-1. [ ] Email integration (via IMAP/Gmail API)
-2. [ ] Keyword detection with scoring
-3. [ ] Email summarization using a Hugging Face model
-4. [ ] Store parsed emails in MySQL
-5. [ ] Notification system (Slack, push, or email)
-6. [ ] Streamlit dashboard to view summaries and adjust settings
+1. ✅ Email integration (via IMAP/Gmail API)
+2. ✅ Keyword detection with scoring
+3. ✅ Email summarization using a Hugging Face model
+4. ✅ Store parsed emails in MySQL
+5. ✅ Notification system (Slack, push, or email)
+6. ✅ Streamlit dashboard to view summaries and adjust settings
+7. ✅ Dummy email generator for testing/demo
+8. ✅ Streamlit sidebar toggle for dummy/live email data
 
 Phase 2 – Stretch Features:
 ---------------------------
@@ -53,7 +55,6 @@ Tech Stack:
 
 Next Steps:
 -----------
-- Set up Streamlit UI (main.py)
 - Connect MySQL and test basic email inserts
 - Build keyword scoring logic
 - Integrate summarizer

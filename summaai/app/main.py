@@ -1,20 +1,28 @@
 import streamlit as st
-from summaai.app.email_parser import EmailParser
+from summaai.app.email_parser import EmailParser, generate_dummy_emails
 from datetime import datetime
 
 st.title('SummaAI – Smart Email Summarizer')
 st.write('Welcome to SummaAI! This dashboard will display important email summaries and allow you to manage settings.')
+
+# Sidebar toggle for dummy data
+use_dummy_data = st.sidebar.checkbox('Use dummy email data (for demo/testing)', value=True)
 
 # Initialize the email parser
 parser = EmailParser()
 
 # Streamlit button to fetch emails
 if st.button('Fetch Emails'):
-    with st.spinner('Fetching unread emails...'):
+    with st.spinner('Fetching emails...'):
         try:
-            emails = parser.fetch_emails()
+            if use_dummy_data:
+                # Use dummy emails for demo/testing
+                emails = generate_dummy_emails()
+            else:
+                # Use live Gmail/IMAP emails
+                emails = parser.fetch_emails()
             if not emails:
-                st.info('No unread emails found.')
+                st.info('No emails found.')
             else:
                 for idx, email_obj in enumerate(emails, 1):
                     with st.expander(f"Email #{idx}: {email_obj['subject']}"):
@@ -32,7 +40,8 @@ if st.button('Fetch Emails'):
             st.error(f"Error fetching emails: {e}")
 
 # Helpful Streamlit comments:
-# - Use the button above to fetch the 10 most recent unread emails from your inbox.
+# - Use the sidebar to toggle between dummy and live email data.
+# - Use the button above to fetch emails.
 # - Each email is shown in an expandable section for easy browsing.
 # - Sender, subject, timestamp, and body are displayed for each email.
 # - Errors are shown if fetching fails (e.g., bad credentials or network issues). 
