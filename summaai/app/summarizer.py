@@ -1,6 +1,8 @@
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
-from typing import Optional
+from typing import Optional, Dict, List
 import threading
+import re
+from datetime import datetime
 
 # Global cache for the summarizer pipeline
 _summarizer_pipeline = None
@@ -58,8 +60,65 @@ def summarize_email(body: str) -> str:
     summary = summary_list[0]['summary_text'].strip()
     return summary
 
+
+def score_email_importance(body: str, keyword_weights: Optional[Dict[str, int]] = None) -> int:
+    """
+    Score the importance of an email based on keyword occurrences and weights.
+    - body: The full email text to scan.
+    - keyword_weights: Dict mapping keywords (case-insensitive) to integer weights.
+      If not provided, uses a default set of common keywords.
+    Returns the total importance score as an integer.
+    """
+    if keyword_weights is None:
+        # Fallback default keywords and weights
+        keyword_weights = {
+            "urgent": 5,
+            "asap": 4,
+            "important": 3,
+            "invoice": 3,
+            "payment": 2,
+            "alert": 2,
+            "action required": 4,
+            "deadline": 3,
+            "security": 2,
+            "meeting": 1
+        }
+    score = 0
+    body_lower = body.lower()
+    for keyword, weight in keyword_weights.items():
+        # Use word boundaries for single words, substring for phrases
+        if ' ' in keyword:
+            # Phrase match (case-insensitive)
+            count = len(re.findall(re.escape(keyword.lower()), body_lower))
+        else:
+            # Whole word match (case-insensitive)
+            count = len(re.findall(r'\b' + re.escape(keyword.lower()) + r'\b', body_lower))
+        score += count * weight
+    return score
+
+
+def generate_daily_digest(emails: List[Dict]) -> str:
+    """
+    Generate a plain-text daily digest for the top 3-5 emails, sorted by importance_score (descending).
+    Each email dict should have: subject, sender, summary, importance_score.
+    Returns a formatted string suitable for display or notification.
+    """
+    if not emails:
+        return "No important emails today."
+    # Sort emails by importance_score descending
+    sorted_emails = sorted(emails, key=lambda e: e.get('importance_score', 0), reverse=True)
+    top_emails = sorted_emails[:5]
+    today_str = datetime.now().strftime('%B %d')
+    digest_lines = [f"\U0001F4EC SummaAI Daily Digest – {today_str}\n"]
+    for idx, email in enumerate(top_emails, 1):
+        subject = email.get('subject', 'No Subject')
+        sender = email.get('sender', 'Unknown Sender')
+        summary = email.get('summary', 'No summary available.')
+        digest_lines.append(f"{idx}. {subject} – {sender}\n   {summary}\n")
+    return '\n'.join(digest_lines)
+
 # Example usage:
-# summary = summarize_email(long_email_body)
+# digest = generate_daily_digest(list_of_email_dicts)
 
 class Summarizer:
     def __init__(self, model_name='facebook/bart-large-cnn'):

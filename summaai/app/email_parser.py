@@ -91,6 +91,8 @@ class EmailParser:
             self.mailbox = None
 
 # --- Dummy email generator for testing/demo purposes ---
+
+
 def generate_dummy_emails(limit=5):
     """
     Generate a list of dummy email dictionaries for testing or demo purposes.
@@ -125,8 +127,8 @@ def generate_dummy_emails(limit=5):
         {
             'sender': 'newsletter@news.com',
             'subject': 'Your Daily News Digest',
-            'body': 'Good morning!\n\nHere are today's top stories.\nKeywords: news, digest, daily.\n\nStay informed!',
+            'body': 'Good morning!\n\nHere are today\'s top stories.\nKeywords: news, digest, daily.\n\nStay informed!',
             'timestamp': now
         }
     ]
-    return dummy_emails[:limit] 
+    return dummy_emails[:limit]
