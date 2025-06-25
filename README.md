@@ -18,12 +18,13 @@ SummaAI is your intelligent inbox sidekick. It filters your emails, finds the hi
   No cloud-based API fees—fully free and personal.
 
 ⚙️ Tech Stack
+- Frontend/UI: Streamlit (instead of Flask)
+- Backend Logic: Embedded in Streamlit scripts
+- Database: MySQL
+- Email Integration: Gmail API or IMAP
+- Summarization: Hugging Face transformers (e.g., T5 or BART)
+- Notifications: Email, Slack webhook, or Firebase Cloud Messagin
 
-- Python + Flask (Backend API)
-- Hugging Face Transformers (Summarization)
-- MySQL (Storage)
-- Gmail API or IMAP (Email parsing)
-- Firebase / Slack Webhooks (Notifications)
 
 🚧 Roadmap
 
